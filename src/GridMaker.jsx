@@ -42,6 +42,9 @@ const TEMAS = {
   },
 };
 
+/* Host Grotesk SemiBold — subconjunto com os glifos de "gri.d.maker" (1,2 KB) */
+const FONTE_MARCA = `@font-face{font-family:"Host Grotesk";font-style:normal;font-weight:600;font-display:swap;src:url(data:font/woff2;base64,d09GMgABAAAAAASsAA8AAAAACJwAAARTAAEAxQAAAAAAAAAAAAAAAAAAAAAAAAAAGhwbIBwqBmA/U1RBVEQAbBEICoYUhRoBNgIkAygLFgAEIAWELgcgGwcHo6JuL06FEP9MMLZlvAaZuTpuujryrpPBpYmhexBcHT8R0reHplfx/P/vR9vnvj8qyQVCJNFgEpogW7RIn4S0RsI7WXx1tf/xT/9GBRgArWMW0MtDybHnT8IKzcIKaSP7H4Azqh+t7WfA90GCZppoUS2FvXoXCqY/iVV+Nd9dri7VX/Dv/F3s1WroKBOQ52BphSIUzAQsfJRQtQbSMYANqFQQDYgb44AdjOqk/7xWtDaCYUAp0Sv69Ytg0JwSpKNWdxjidPAfAMGgDXxkpLeUy53EGOSBoF9X0moAGnXQJMGxU+ccKCMENUSjUqhkqAaErenxfW8YzoEU1r7/exy0pyEABPKBfApYQhHRrzCNjDXk6/0DBAm4cKVzhJSDpDOOBBlfxno0UckFCCg0TKMIplGdBSaloSiHderVb9CwUdh/wK3ruYb/z+y31x677bLT1kjsViP/SUUMgmlgDL8qJwBA92m0pTRJACglR9K4rDSqDJ1L9VRsY9g6w9EFtv6E/RIX+7NnJiK5PAIkbJO8VFXn+yF18STsD5KPg2FWCSi74RGMGOKyZczeVSmSWmu8JimjIQ7v4sSHWRI/4XzHsFAKZKtYajNBJ09OSiR3GS5JNWrWgeCGq8ugWrU5ceyFB9Var9tHN8Pshp9cwm2duZdNoe8nOqSTIgKDaP9R7uMLTHxvNNIi1CdpcnUXFey5cSxSaWth60anhjqmuSv2dFpfocpc9GB1spIWVtobvWVXiYTHLLoEgHXMVDPhdNUQY0ZbeUS0wZu6NuXoCKh4AyIDj2ORSG+sgSsSerp/jge5iS5Mr8fdntoJ3Oh2jNVWjZgT8op3ezksS5WK84yjVxZL2YbrXAFxZeaq3tkqAu1bPSrw1MeZJg96lDqekc41qfXvfpryxdao0UA47AY8arRVNsrXnFM3IlZiotLvEht5XLNIzDUZuWKxicsxisUcs4l3BZB+mPowaZ6dnoVdd1Sen8mbD99fm7p2//xvuz3JDIxYi3l4yvKAeO5Ak0zb3o8hBZMpJpVZrTF47DBVebVZo95UOPRhys0+wTMN+1ivct0Vj4F9c/sWANy4ByTE46655N3nU6u+xlEo7wCv7h4uAOCdpHPq//5t9xxtl4FeBcKv6u2eAHC8zTv2Q4O1pKREGNUEeSWRXyNQ4hZIK4O4rZJmHiSeARsJg86KtY8qLLEJhhx00rp44C5QMXacEMuo92JzxKfaDhN7zEQu9NqKM4wEhoOJmCYtC2KOpGzOP1dCdjJBRE3DDOo3gECnJKekQhc2oBedHQIP420wCEIv3DA6vwuGUDeCNxhHGIDA4Oj4aXGEKFwFGZl+g9CqxnWR6oYYJWMxoteoXmMIEmHTonrJpi+0tSpYFgole24GGSFG9Ajq1W/ciE4YBSk5OZVKbh5eYZUTNZYcUHcMBjcIMYaulUkC9Z7XXTj8gBwInUYM6haEGNVpDAX4/5QMAAA=) format("woff2")}`;
+
 const MONO = 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace';
 const SANS =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Helvetica, Arial, sans-serif';
@@ -501,6 +504,7 @@ export default function GeradorDeGrid() {
   return (
     <div className="app">
       <style>{`
+        ${FONTE_MARCA}
         .app{--acento:${C.cyan};display:flex;height:100vh;min-height:640px;background:${C.ink};color:${C.text};
           font-family:${SANS};font-size:13px;overflow:hidden}
         .app *{box-sizing:border-box}
@@ -510,15 +514,18 @@ export default function GeradorDeGrid() {
           overflow-y:auto;padding:0 0 40px}
         .brand{padding:18px 18px 14px;border-bottom:1px solid ${C.line};position:sticky;top:0;
           background:${C.ink2};z-index:5}
-        .brand{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-        .brand h1{margin:0;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
+        .brand{display:flex;align-items:center;justify-content:space-between;gap:10px}
+        .marca{display:flex;align-items:center;gap:11px;min-width:0}
+        .marca .logo{height:20px;width:auto;display:block;color:${C.text};flex:none}
+        .marca .risco{width:1px;align-self:stretch;margin:1px 0;background:${C.line};flex:none}
+        .brand h1{margin:0;font-family:"Host Grotesk",${SANS};font-size:19px;font-weight:600;
+          letter-spacing:-.005em;text-transform:lowercase;line-height:1;color:${C.text}}
         .tema{flex:0 0 auto;width:30px;height:30px;padding:6px;background:${C.ink};
           border:1px solid ${C.line};border-radius:2px;cursor:pointer;color:${C.muted}}
         .tema:hover{background:${C.cyan};border-color:${C.cyan};color:${C.sobreCyan}}
         .tema:focus-visible{outline:2px solid ${C.cyan};outline-offset:1px}
         .tema svg{width:100%;height:100%;display:block;fill:none;stroke:currentColor;
           stroke-width:1.7}
-        .brand p{margin:5px 0 0;font-family:${MONO};font-size:10px;color:${C.muted};letter-spacing:.08em}
         .sec{border-bottom:1px solid ${C.line};padding:16px 18px}
         .sec-title{font-family:${MONO};font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
           color:${C.cyan};margin:0 0 12px;display:flex;align-items:center;gap:8px}
@@ -611,9 +618,19 @@ export default function GeradorDeGrid() {
       {/* ============================ PAINEL ============================ */}
       <aside className="panel">
         <div className="brand">
-          <div>
-            <h1>Gerador de Grid</h1>
-            <p>MÓDULO · REPETIÇÃO · EXPORTAÇÃO</p>
+          <div className="marca">
+            <svg
+              className="logo"
+              viewBox="0 0 557.34 334.4"
+              fill="currentColor"
+              role="img"
+              aria-label="Logo"
+            >
+              <path d="M557.34,167.21v167.19h-55.74v-111.47h-111.47v1.96c0,60.48-49.03,109.52-109.52,109.52h-1.94v-55.74h.1c30.73,0,55.63-24.91,55.63-55.63v-.1h-55.74v-55.72h55.74V0h55.72v167.21h167.21Z" />
+              <path d="M55.74,167.21h111.46v-55.74h55.74v222.93H0v-55.74h167.19v-55.74H0v-113.41C0,49.03,49.03,0,109.52,0h113.41v55.74h-111.39c-30.82,0-55.8,24.98-55.8,55.8v55.67Z" />
+            </svg>
+            <span className="risco" />
+            <h1>gri.d.maker</h1>
           </div>
           <button
             className="tema"
