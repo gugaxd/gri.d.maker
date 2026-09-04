@@ -29,9 +29,9 @@ npm run dev
 
 ## Publicando
 
-O workflow em `.github/workflows/deploy.yml` publica no GitHub Pages a cada push na `main`. Ative em **Settings › Pages › Source: GitHub Actions**.
+Hospedado na Vercel, em <https://gridmaker-iota.vercel.app>. A Vercel observa a `main` deste repositório e publica sozinha a cada push — não há workflow de deploy aqui.
 
-O campo `base` em `vite.config.js` precisa bater com o nome do repositório.
+O build sai na raiz (`base` padrão), então não existe prefixo de caminho a manter em sincronia.
 
 ## Licença
 
