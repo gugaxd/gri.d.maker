@@ -3,6 +3,9 @@ import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import { MONO, SANS } from "./theme.js";
 
+/* Menu do hub de ferramentas (projeto "hub" ao lado). Em dev aponta pro servidor local. */
+const HUB_URL = import.meta.env.DEV ? "http://localhost:5180/" : "https://design-tools-gugaxd.vercel.app/";
+
 /* ------------------------------------------------------------------ */
 /* Paleta — tinta ciano-escura + acentos de registro CMYK               */
 /* ------------------------------------------------------------------ */
@@ -45,7 +48,8 @@ const TEMAS = {
   },
 };
 
-/* Host Grotesk SemiBold — subconjunto com os glifos de "gri.d.maker" (1,2 KB) */
+/* Host Grotesk SemiBold — subconjunto com os glifos de "gri.d.maker" (1,2 KB).
+   O nome no cabeçalho virou "grid maker": o espaço vem da fonte de sistema. */
 const FONTE_MARCA = `@font-face{font-family:"Host Grotesk";font-style:normal;font-weight:600;font-display:swap;src:url(data:font/woff2;base64,d09GMgABAAAAAASsAA8AAAAACJwAAARTAAEAxQAAAAAAAAAAAAAAAAAAAAAAAAAAGhwbIBwqBmA/U1RBVEQAbBEICoYUhRoBNgIkAygLFgAEIAWELgcgGwcHo6JuL06FEP9MMLZlvAaZuTpuujryrpPBpYmhexBcHT8R0reHplfx/P/vR9vnvj8qyQVCJNFgEpogW7RIn4S0RsI7WXx1tf/xT/9GBRgArWMW0MtDybHnT8IKzcIKaSP7H4Azqh+t7WfA90GCZppoUS2FvXoXCqY/iVV+Nd9dri7VX/Dv/F3s1WroKBOQ52BphSIUzAQsfJRQtQbSMYANqFQQDYgb44AdjOqk/7xWtDaCYUAp0Sv69Ytg0JwSpKNWdxjidPAfAMGgDXxkpLeUy53EGOSBoF9X0moAGnXQJMGxU+ccKCMENUSjUqhkqAaErenxfW8YzoEU1r7/exy0pyEABPKBfApYQhHRrzCNjDXk6/0DBAm4cKVzhJSDpDOOBBlfxno0UckFCCg0TKMIplGdBSaloSiHderVb9CwUdh/wK3ruYb/z+y31x677bLT1kjsViP/SUUMgmlgDL8qJwBA92m0pTRJACglR9K4rDSqDJ1L9VRsY9g6w9EFtv6E/RIX+7NnJiK5PAIkbJO8VFXn+yF18STsD5KPg2FWCSi74RGMGOKyZczeVSmSWmu8JimjIQ7v4sSHWRI/4XzHsFAKZKtYajNBJ09OSiR3GS5JNWrWgeCGq8ugWrU5ceyFB9Var9tHN8Pshp9cwm2duZdNoe8nOqSTIgKDaP9R7uMLTHxvNNIi1CdpcnUXFey5cSxSaWth60anhjqmuSv2dFpfocpc9GB1spIWVtobvWVXiYTHLLoEgHXMVDPhdNUQY0ZbeUS0wZu6NuXoCKh4AyIDj2ORSG+sgSsSerp/jge5iS5Mr8fdntoJ3Oh2jNVWjZgT8op3ezksS5WK84yjVxZL2YbrXAFxZeaq3tkqAu1bPSrw1MeZJg96lDqekc41qfXvfpryxdao0UA47AY8arRVNsrXnFM3IlZiotLvEht5XLNIzDUZuWKxicsxisUcs4l3BZB+mPowaZ6dnoVdd1Sen8mbD99fm7p2//xvuz3JDIxYi3l4yvKAeO5Ak0zb3o8hBZMpJpVZrTF47DBVebVZo95UOPRhys0+wTMN+1ivct0Vj4F9c/sWANy4ByTE46655N3nU6u+xlEo7wCv7h4uAOCdpHPq//5t9xxtl4FeBcKv6u2eAHC8zTv2Q4O1pKREGNUEeSWRXyNQ4hZIK4O4rZJmHiSeARsJg86KtY8qLLEJhhx00rp44C5QMXacEMuo92JzxKfaDhN7zEQu9NqKM4wEhoOJmCYtC2KOpGzOP1dCdjJBRE3DDOo3gECnJKekQhc2oBedHQIP420wCEIv3DA6vwuGUDeCNxhHGIDA4Oj4aXGEKFwFGZl+g9CqxnWR6oYYJWMxoteoXmMIEmHTonrJpi+0tSpYFgole24GGSFG9Ajq1W/ciE4YBSk5OZVKbh5eYZUTNZYcUHcMBjcIMYaulUkC9Z7XXTj8gBwInUYM6haEGNVpDAX4/5QMAAA=) format("woff2")}`;
 
 /* ------------------------------------------------------------------ */
@@ -62,6 +66,9 @@ const pathFolha = (w, h, r) => {
   return `M${k},0 H${w} V${h - k} A${k},${k} 0 0 1 ${w - k},${h} H0 V${k} A${k},${k} 0 0 1 ${k},0 Z`;
 };
 
+/* Softpoint: o raio do logo sobre a largura dele (275,14 / 994,92) */
+const RAIO_SOFTPOINT = 0.2765;
+
 const SHAPES = {
   quadrado: { label: "Quadrado", el: <rect className="shp" x="0" y="0" width="100" height="100" /> },
   arredondado: {
@@ -73,6 +80,13 @@ const SHAPES = {
     label: "Folha",
     el: <path className="shp" d={pathFolha(100, 100, 22)} />,
     param: pathFolha,
+  },
+  softpoint: {
+    label: "Softpoint",
+    el: <path className="shp" d={pathFolha(100, 100, RAIO_SOFTPOINT * 100)} />,
+    param: pathFolha,
+    /* o raio da marca é 27,65% do lado — é o que dá a silhueta reconhecível */
+    raio: (lado) => Math.round(lado * RAIO_SOFTPOINT),
   },
   retangulo: {
     label: "Retângulo",
@@ -603,7 +617,8 @@ export default function GeradorDeGrid() {
       {/* ============================ PAINEL ============================ */}
       <aside className="panel">
         <Header
-          tool="gri.d.maker"
+          tool="grid maker"
+          homeHref={HUB_URL}
           theme={C}
           fontFamily={`"Host Grotesk", ${SANS}`}
           tema={tema}
@@ -711,7 +726,10 @@ export default function GeradorDeGrid() {
                 data-on={shape === k ? "1" : "0"}
                 title={v.label}
                 aria-label={v.label}
-                onClick={() => setShape(k)}
+                onClick={() => {
+                  setShape(k);
+                  if (v.raio) setRaioCanto(v.raio(cell));
+                }}
               >
                 <svg viewBox="0 0 100 100">{v.el}</svg>
               </button>
@@ -1082,8 +1100,8 @@ export default function GeradorDeGrid() {
         <Footer
           theme={C}
           links={[
-            { label: "Bento Maker", href: "https://bento-maker-three.vercel.app/" },
-            { label: "Gradient Maker", href: "https://gradient-maker-peach.vercel.app/" },
+            { label: "bento maker", href: "https://bento-maker-three.vercel.app/" },
+            { label: "gradient maker", href: "https://gradient-maker-peach.vercel.app/" },
           ]}
         />
       </aside>

@@ -1,4 +1,4 @@
-# Grid Maker
+# grid maker
 
 Gerador de grids modulares para design gráfico e pré-impressão. Roda inteiramente no navegador, sem back-end.
 
