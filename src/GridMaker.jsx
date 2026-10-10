@@ -1,6 +1,5 @@
 import { useState, useRef, useMemo, useCallback } from "react";
 import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
 import { MONO, SANS } from "./theme.js";
 
 /* Menu do hub de ferramentas (projeto "hub" ao lado). Em dev aponta pro servidor local. */
@@ -1097,13 +1096,6 @@ export default function GeradorDeGrid() {
           </p>
         </section>
 
-        <Footer
-          theme={C}
-          links={[
-            { label: "bento maker", href: "https://bento-maker-three.vercel.app/" },
-            { label: "gradient maker", href: "https://gradient-maker-peach.vercel.app/" },
-          ]}
-        />
       </aside>
 
       {/* ============================ PALCO ============================ */}
